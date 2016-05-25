@@ -39,4 +39,5 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, nil))
   // How do we test this? Let's bring out the curls and the postman's?
   // Ah no, lets TDD this program.
+  // go run simpleserver_0.go and wait...Don't you use curl or anything else..
 }
