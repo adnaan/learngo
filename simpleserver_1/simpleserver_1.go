@@ -10,11 +10,11 @@ import (
 var port = "3333"
 var msg = "Dr. Who say's alonzi"
 
-// So we want to tests to drive our writing. For which we need the ability to
+// So we want tests to drive our writing. For which we need the ability to
 // start and stop the humble http server through a test function
 
 // To do that we encapsulate things we need in a struct. structs are Go's construct
-// for a collection of fields. It's also Go's way to define custom types
+// for a collection of fields. It's also Go's way to define custom types.
 type server struct {
 	httpServer *http.Server
 	listener   net.Listener
@@ -25,7 +25,7 @@ type server struct {
 // of the value.
 func (s *server) listenAndServe() error {
 	// Multi-Value returns! It doesn't return you know, an "OBJECT" or even a struct
-	// Doing this in Go is idiomatic(i.e the Go's highway of good design)
+	// Doing this in Go is idiomatic(i.e Go's highway of good design)
 	listener, err := net.Listen("tcp", s.httpServer.Addr)
 	if err != nil {
 		return err
@@ -125,5 +125,5 @@ func main() {
 	// that curl command(you didn't use that did you), but now since the main "goroutine"
 	// has no work it simply,uh, goes away.
 	// But let's find the solution to this on another day, for now let's just go onto
-	// our test: simpleserver_1_test.go
+	// our test: https://github.com/adnaan/learngo/blob/master/simpleserver_1/simpleserver_1_test.go
 }

@@ -33,7 +33,7 @@ func TestServerFail(t *testing.T) {
 		failMsg := "It's bigger on the inside"
 		// we will convert byte[] to a string. simply string(myByteArray)
 		if failMsg != string(msg1) {
-			t.Fatal("Unexpected message: ", failMsg)
+			t.Fatal("Unexpected message: ", string(msg1))
 		}
 
 	})
