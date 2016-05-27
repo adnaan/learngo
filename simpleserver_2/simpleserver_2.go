@@ -47,7 +47,7 @@ func (s *server) shutdown() error {
 
 func newServer(port string) *server {
 
-  // this tiny function was kinda alone out there so lets just treat it as a local var.
+  // This tiny function was kinda alone out there so lets just treat it as a local var.
   handle := func (w http.ResponseWriter, r *http.Request) {
   	io.WriteString(w, msg)
   }
@@ -57,7 +57,7 @@ func newServer(port string) *server {
   }
   // You guessed it. ServeMux is an HTTP request multiplexer.
   mux:=http.NewServeMux()
-  // Functions are a first class citizens in Go. And like any other good citizen
+  // Functions are first class citizens in Go. And like any other good citizen
   // they can be passed as arguments.
   mux.HandleFunc("/",handle)
   mux.HandleFunc("/another",anotherhandle)
