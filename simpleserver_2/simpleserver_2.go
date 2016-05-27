@@ -45,22 +45,22 @@ func (s *server) shutdown() error {
 
 func newServer(port string) *server {
 
-  // This tiny function was kinda alone out there so lets just treat it as a local var.
-  handle := func (w http.ResponseWriter, r *http.Request) {
-  	io.WriteString(w, msg)
-  }
-  // and lets setup another route
-  anotherhandle := func (w http.ResponseWriter, r *http.Request) {
-    io.WriteString(w, anothermsg)
-  }
-  // You guessed it. ServeMux is an HTTP request multiplexer.
-  mux:=http.NewServeMux()
-  // Functions are first class citizens in Go. And like any other good citizen
-  // they can be passed as arguments.
-  mux.HandleFunc("/",handle)
-  mux.HandleFunc("/another",anotherhandle)
+	// This tiny function was kinda alone out there so lets just treat it as a local var.
+	handle := func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, msg)
+	}
+	// and lets setup another route
+	anotherhandle := func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, anothermsg)
+	}
+	// You guessed it. ServeMux is an HTTP request multiplexer.
+	mux := http.NewServeMux()
+	// Functions are first class citizens in Go. And like any other good citizen
+	// they can be passed as arguments.
+	mux.HandleFunc("/", handle)
+	mux.HandleFunc("/another", anotherhandle)
 
-	httpServer := &http.Server{Addr: ":" + port, Handler:mux }
+	httpServer := &http.Server{Addr: ":" + port, Handler: mux}
 	return &server{httpServer: httpServer}
 
 }
@@ -77,10 +77,10 @@ func main() {
 
 	// Here comes the chan type, the Jackie Chan of concurrency(sorry). A "Channel"
 	// is a typed pipe through which you can send and receive values across goroutines.
-  // We are going to use channel as a block in the main goroutine.
+	// We are going to use channel as a block in the main goroutine.
 	// This particular channel is of type struct{}. An empty struct occupies zero bytes
 	// of storage and since we aren't going to actually send or receive any values it's used.
-  // It's totally cool to have chan int, chan bool chan MyStruct etc.
+	// It's totally cool to have chan int, chan bool chan MyStruct etc.
 
 	ch := make(chan struct{})
 
@@ -99,6 +99,6 @@ func main() {
 	// do : ch <- someVal or close(ch). More of this coming up.
 	// Now you can do : go run simpleserver_2.go  and expect it to work.
 	// Goto http://localhost:3333/another to check whether it did.
-  // To exit : Ctrl-C works but that's not nice. We can be more graceful than that.
+	// To exit : Ctrl-C works but that's not nice. We can be more graceful than that.
 	<-ch
 }
