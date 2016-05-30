@@ -1,14 +1,14 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"net/http"
-  "os/signal"
-  "syscall"
-	"flag"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 var msg = "Dr. Who say's alonzi\n"
@@ -73,18 +73,17 @@ func testRig(f func()) {
 func main() {
 	// Let's get port as a commandline input
 	var port string
-  flag.StringVar(&port, "port", "3333", "./simpleserver_3 -port 3333")
+	flag.StringVar(&port, "port", "3333", "./simpleserver_3 -port 3333")
 	flag.Parse()
 
-
 	// a channel to receive unix signals
-  sigs := make(chan os.Signal, 1)
+	sigs := make(chan os.Signal, 1)
 	// a channel to receive a finito confirmation on interrupt
-  done := make(chan bool, 1)
+	done := make(chan bool, 1)
 
 	// signal.Notify is a method to create a channel which receives
 	// SIGINT, SIGTERM unix signals.
-  signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	moveAlong := func() {
 		fmt.Println("Not the droid you lookin for...")
@@ -98,14 +97,13 @@ func main() {
 	// As soon as it receives a signal, it sends a 'true' to 'done' which unblocks too
 	// and the program exits.
 	go func() {
-        sig := <-sigs
-        fmt.Println()
-        fmt.Println(sig)
-				// this is graceful
-				server.shutdown()
-        done <- true
-    }()
-
+		sig := <-sigs
+		fmt.Println()
+		fmt.Println(sig)
+		// this is graceful
+		server.shutdown()
+		done <- true
+	}()
 
 	// Ctrl-C sends a SIGINT signal to the program
 	fmt.Println("Ctrl-C to interrupt...")
